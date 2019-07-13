@@ -1,0 +1,341 @@
+<html>
+    <head>
+
+
+        <style>
+            body {
+              background-color: black;
+            }
+            #counter {
+                position: fixed;
+                right: 5px;
+                top: 5px;
+                color: white;
+                font-size: 24;
+                font-family: "Arial";
+
+            }
+            #jsstyle{
+                position: fixed;
+                right: 5px;
+                bottom: 5px;
+            }
+            #imageContainer {
+              height: 90%;
+              width: 90%;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              /* bring your own prefixes */
+              transform: translate(-50%, -50%);
+
+            }
+            #mainText{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                /* bring your own prefixes */
+                transform: translate(-50%, -50%);
+                color: white;
+                font-size: 48;
+                font-family: "Arial";
+            }
+            img {
+              max-height: 100%;
+              max-width: 100%;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              /* bring your own prefixes */
+              transform: translate(-50%, -50%);
+            }
+          </style>
+
+    <meta charset=utf-8 />
+    <title>Display a random image.</title>
+    </head>
+    <body>
+        <div id="mainText"></div>
+        <div>
+            <button id="jsstyle" onclick="toggleSlides();"></button>
+        </div>
+        <div id="counter"></div>
+    <div id="imageContainer"></div>
+
+
+    <script>
+
+    document.getElementById("mainText").innerHTML = "Topic ...";
+
+      var counter = 1;
+      var numSlides = 10;
+      var enabled = false;
+
+
+      var myPix = [
+        { src: "images/5a3bb10db106f_Gql4V7x-png__700.jpg"},
+        { src: "images/5aa6627814ed8_0wpenz3anzj01__700.jpg"},
+        { src: "images/21457420_1604346246306962_5308963384279338463_o-5a392099c6b5d__700.jpg"},
+        { src: "images/action-animation-attraction-1049622.jpg"},
+        { src: "images/action-figures-art-boy-163036.jpg"},
+        { src: "images/adam-jang-8pOTAtyd_Mc-unsplash.jpg"},
+        { src: "images/adam-whitlock-I9j8Rk-JYFM-unsplash.jpg"},
+        { src: "images/adeolu-eletu-E7RLgUjjazc-unsplash.jpg"},
+        { src: "images/aditya-vyas-mHdATQY9fIU-unsplash.jpg"},
+        { src: "images/adorable-animal-animal-photography-1629781.jpg"},
+        { src: "images/adorable-animal-baby-1851164.jpg"},
+        { src: "images/adorable-baby-child-929435.jpg"},
+        { src: "images/adult-biscuit-businessman-2261.jpg"},
+        { src: "images/adult-change-clown-1990.jpg"},
+        { src: "images/ak-n-cakiner-1FsPXxrNTZc-unsplash.jpg"},
+        { src: "images/alexandra-munoz--Tv0HrW_Pug-unsplash.jpg"},
+        { src: "images/analytics-blur-chart-590020.jpg"},
+        { src: "images/anaya-katlego-PlmQtIqZYzw-unsplash.jpg"},
+        { src: "images/anchors.jpg"},
+        { src: "images/andrea-tummons-HmPkvapPq70-unsplash.jpg"},
+        { src: "images/animal-crazy-farm-560.jpg"},
+        { src: "images/annie-spratt-biVuafyC8oI-unsplash.jpg"},
+        { src: "images/anonymous-anonymously-eyewear-2867.jpg"},
+        { src: "images/art-school-of-athens-raphael-italian-painter-fresco-159862.jpg"},
+        { src: "images/ashim-d-silva-Kw_zQBAChws-unsplash.jpg"},
+        { src: "images/austin-chan-ukzHlkoz1IE-unsplash.jpg"},
+        { src: "images/balloons.jpg"},
+        { src: "images/bar-british-coins-coins-50545.jpg"},
+        { src: "images/bart-heird-9yT2ULsAbxc-unsplash.jpg"},
+        { src: "images/birdcage.jpg"},
+        { src: "images/blake-barlow-eRJ3FJZQCy8-unsplash.jpg"},
+        { src: "images/boat.jpg"},
+        { src: "images/brick-wall-close-up-colors-1115680.jpg"},
+        { src: "images/bride-crown-cute-355049.jpg"},
+        { src: "images/bruce-warrington-PUyJaeKU990-unsplash.jpg"},
+        { src: "images/bruno-nascimento-PHIgYUGQPvU-unsplash.jpg"},
+        { src: "images/bun-chocolate-sweets-dessert-50717.jpg"},
+        { src: "images/businessmen-career-colorful-6805.jpg"},
+        { src: "images/carl-heyerdahl-KE0nC8-58MQ-unsplash.jpg"},
+        { src: "images/carson-arias-7Z03R1wOdmI-unsplash.jpg"},
+        { src: "images/chad-peltola-HmORQ3_8yuM-unsplash.jpg"},
+        { src: "images/chris-barbalis-5uVMDGzZAOQ-unsplash.jpg"},
+        { src: "images/chromatograph-eMhgBQMConM-unsplash.jpg"},
+        { src: "images/clark-tibbs-oqStl2L5oxI-unsplash.jpg"},
+        { src: "images/clean-cleaning-funny-2371.jpg"},
+        { src: "images/cody-davis-5E5N49RWtbA-unsplash.jpg"},
+        { src: "images/crawford-jolly-Sew-_taOFPg-unsplash.jpg"},
+        { src: "images/cyclists.jpg"},
+        { src: "images/dan-gold-P_0R02ArdLE-unsplash.jpg"},
+        { src: "images/dan-meyers-eio8P1KvdCo-unsplash.jpg"},
+        { src: "images/daniel-h-tong-xBeid9r1paU-unsplash.jpg"},
+        { src: "images/daria-magazzu-q5MgmIcrowg-unsplash.jpg"},
+        { src: "images/david-kovalenko-G85VuTpw6jg-unsplash.jpg"},
+        { src: "images/dhiva-krishna-GRV4ypBKgxE-unsplash.jpg"},
+        { src: "images/diego-ph-fIq0tET6llw-unsplash.jpg"},
+        { src: "images/dorian-mongel-5Rgr_zI7pBw-unsplash.jpg"},
+        { src: "images/efe-kurnaz-RnCPiXixooY-unsplash.jpg"},
+        { src: "images/fabian-moller-gI7zgb80QWY-unsplash.jpg"},
+        { src: "images/fas-khan-Ju2G2JPQW00-unsplash.jpg"},
+        { src: "images/felix-koutchinski-lBffpNiHlpY-unsplash.jpg"},
+        { src: "images/florian-klauer-mk7D-4UCfmg-unsplash.jpg"},
+        { src: "images/florian-klauer-nptLmg6jqDo-unsplash.jpg"},
+        { src: "images/fortress.jpg"},
+        { src: "images/francesco-gallarotti-ruQHpukrN7c-unsplash.jpg"},
+        { src: "images/franck-v-nuc3NFB_6po-unsplash.jpg"},
+        { src: "images/fruit-stall.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-1-5a39121d2fd9b__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-2-5a3913b06dabd__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-4-5a391635d4441__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-5-5a3916aed5ceb__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-16-5a392518213b6__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-19-5a3926af95d9d__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-24-5a392d5d9bda7__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-28-5a3bbe9d8359a__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-29-5a3bbf6b34a98__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-34-5a3a63ea8201f__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-45-5a3bd62987acf__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-49-5a3a33dcdb38d__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-50-5a4633daa5723__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-54-5a3a3e128ba2b__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-58-5a3a86870dfce__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-59-5a3bb8d9f422e__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-60-5a3bbe29f2b73__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-152-5a46421a93b3a__700.jpg"},
+        { src: "images/funny-weird-wtf-stock-photos-156-5a46045f4f1c6__700.jpg"},
+        { src: "images/gambler_94-vNhmMDpYc-c-unsplash.jpg"},
+        { src: "images/graf.jpg"},
+        { src: "images/hans-vivek-mBu44hd3ea0-unsplash.jpg"},
+        { src: "images/heavybox.jpg"},
+        { src: "images/ian-schneider-TamMbr4okv4-unsplash.jpg"},
+        { src: "images/ian-valerio-13n8I-_H7_Y-unsplash.jpg"},
+        { src: "images/jaron-nix-7wWRXewYCH4-unsplash.jpg"},
+        { src: "images/jc-gellidon-Q8CBsVtouZM-unsplash.jpg"},
+        { src: "images/jez-timms-bwtgal6MJLM-unsplash.jpg"},
+        { src: "images/jj-jordan-j4HF-tMscQQ-unsplash.jpg"},
+        { src: "images/john-baker-3To9V42K0Ag-unsplash.jpg"},
+        { src: "images/jon-tyson-XmMsdtiGSfo-unsplash.jpg"},
+        { src: "images/jon-tyson-XzUMBNmQro0-unsplash.jpg"},
+        { src: "images/jonathan-riley-VW8MUbHyxCU-unsplash.jpg"},
+        { src: "images/jorge-fernandez-B-mDTp4ahZw-unsplash.jpg"},
+        { src: "images/josh-sorenson-H9pgj5zIFug-unsplash.jpg"},
+        { src: "images/joshua-coleman-fXls-tVemno-unsplash.jpg"},
+        { src: "images/justice-law-case-hearing-159832.jpg"},
+        { src: "images/kevin-young--icmOdYWXuQ-unsplash.jpg"},
+        { src: "images/kipras-streimikis-39-0VXkvcbw-unsplash.jpg"},
+        { src: "images/kyle-glenn-nXt5HtLmlgE-unsplash (1).jpg"},
+        { src: "images/kyle-glenn-nXt5HtLmlgE-unsplash.jpg"},
+        { src: "images/louis-reed-JeInkKlI2Po-unsplash.jpg"},
+        { src: "images/luke-chesser-JKUTrJ4vK00-unsplash.jpg"},
+        { src: "images/m-b-m-ZzOa5G8hSPI-unsplash.jpg"},
+        { src: "images/manki-kim-mv7kxYh5Rko-unsplash.jpg"},
+        { src: "images/mark-adriane-muS2RraYRuQ-unsplash.jpg"},
+        { src: "images/max-bender-s4I1xpX_ny8-unsplash.jpg"},
+        { src: "images/michael-discenza-MxfcoxycH_Y-unsplash.jpg"},
+        { src: "images/milos-prelevic-2xuiab6o-qc-unsplash.jpg"},
+        { src: "images/miriam-espacio-iUS8HYDhCsQ-unsplash.jpg"},
+        { src: "images/my-life-through-a-lens-bq31L0jQAjU-unsplash.jpg"},
+        { src: "images/narcizas-60811761-5a39128f0a999__700.jpg"},
+        { src: "images/nasa-_SFJhRPzJHs-unsplash.jpg"},
+        { src: "images/nguyen-linh-wPJygs79jMA-unsplash.jpg"},
+        { src: "images/nhia-moua-F4cJtI7HCMw-unsplash.jpg"},
+        { src: "images/nicole-honeywill-8rl17QHqbGk-unsplash.jpg"},
+        { src: "images/pascal-swier-7de474KZIbs-unsplash.jpg"},
+        { src: "images/patrick-fore-YS_51ncQL5o-unsplash.jpg"},
+        { src: "images/patrick-perkins-Vb03m4eY4LM-unsplash.jpg"},
+        { src: "images/pawel-czerwinski-7USMFYqt1NI-unsplash.jpg"},
+        { src: "images/perry-grone-lbLgFFlADrY-unsplash.jpg"},
+        { src: "images/peter-lewicki-Wfh650C1OHU-unsplash.jpg"},
+        { src: "images/pexels-photo-91223.jpg"},
+        { src: "images/pexels-photo-126790.jpg"},
+        { src: "images/pexels-photo-174938.jpg"},
+        { src: "images/pexels-photo-210711.jpg"},
+        { src: "images/pexels-photo-243925.jpg"},
+        { src: "images/pexels-photo-247530.jpg"},
+        { src: "images/pexels-photo-262543.jpg"},
+        { src: "images/pexels-photo-267350.jpg"},
+        { src: "images/pexels-photo-267371.jpg"},
+        { src: "images/pexels-photo-270271.jpg"},
+        { src: "images/pexels-photo-281490.jpg"},
+        { src: "images/pexels-photo-389734.jpg"},
+        { src: "images/pexels-photo-414363.jpg"},
+        { src: "images/pexels-photo-531474.jpg"},
+        { src: "images/pexels-photo-531970.jpg"},
+        { src: "images/pexels-photo-622135.jpg"},
+        { src: "images/pexels-photo-678412.jpg"},
+        { src: "images/pexels-photo-709808.jpg"},
+        { src: "images/pexels-photo-728880.jpg"},
+        { src: "images/pexels-photo-734956.jpg"},
+        { src: "images/pexels-photo-753619.jpg"},
+        { src: "images/pexels-photo-769598.jpg"},
+        { src: "images/pexels-photo-804721.jpg"},
+        { src: "images/pexels-photo-918328.jpg"},
+        { src: "images/pexels-photo-928251.jpg"},
+        { src: "images/pexels-photo-946240.jpg"},
+        { src: "images/pexels-photo-972509.jpg"},
+        { src: "images/pexels-photo-1092644.jpg"},
+        { src: "images/pexels-photo-1109766.jpg"},
+        { src: "images/pexels-photo-1114690.jpg"},
+        { src: "images/pexels-photo-1188748.jpg"},
+        { src: "images/pexels-photo-1191668.jpg"},
+        { src: "images/pexels-photo-1287518.jpg"},
+        { src: "images/pexels-photo-1337585.jpg"},
+        { src: "images/pexels-photo-1680140.jpg"},
+        { src: "images/pexels-photo-1692818.jpg"},
+        { src: "images/pexels-photo-1760695.jpg"},
+        { src: "images/pexels-photo-1769949.jpg"},
+        { src: "images/pexels-photo-1785502.jpg"},
+        { src: "images/pexels-photo-1793306.jpg"},
+        { src: "images/pexels-photo-1799247.jpg"},
+        { src: "images/philippe-goulet-zg9dfG9IHL0-unsplash.jpg"},
+        { src: "images/plane.jpg"},
+        { src: "images/rain-coats.jpg"},
+        { src: "images/richard-jaimes-O9ma3bDyBB4-unsplash.jpg"},
+        { src: "images/rick-proctor-PGc9Vid8O24-unsplash.jpg"},
+        { src: "images/rick-tap-uJhgEXPqSPk-unsplash.jpg"},
+        { src: "images/ryan-riggins-kBJEJqWNtNY-unsplash.jpg"},
+        { src: "images/sam-carter-GHOiyov2TSQ-unsplash.jpg"},
+        { src: "images/sebastiaan-stam-XbZkCaminOY-unsplash.jpg"},
+        { src: "images/shivam-dewan-tUVWuQpfj2A-unsplash.jpg"},
+        { src: "images/smoke-vibe-94c7nX5vkV0-unsplash.jpg"},
+        { src: "images/stefan-cosma-0gO3-b-5m80-unsplash.jpg"},
+        { src: "images/stijn-te-strake-UdhpcfImQ9Y-unsplash.jpg"},
+        { src: "images/tyler-easton-faixctm2YRQ-unsplash.jpg"},
+        { src: "images/vlah-dumitru-FvmwloIbCeQ-unsplash.jpg"},
+        { src: "images/wesley-gibbs-NxRx7_mPdEk-unsplash.jpg"},
+        { src: "images/yns-plt-6dJ4fApKPk8-unsplash.jpg"},
+        { src: "images/zhengtao-tang-V7SKRhXskv8-unsplash.jpg"},
+        ]
+
+        var preBuffer = [];
+        for (var i = 0, j = myPix.length; i < j; i++) {
+            preBuffer[i] = new Image();
+            preBuffer[i].src = myPix[i].src;
+            // preBuffer[i].width = myPix[i].width;
+            // preBuffer[i].height = myPix[i].height;
+        }
+
+        function toggleSlides() {
+            enabled = !enabled;
+            if (enabled) {
+                display_random_image()
+            }
+        }
+
+      function display_random_image() {
+
+          setTimeout(display_random_image, 30000)
+
+          // create random image number
+        function getRandomInt(min,max) {
+            //  return Math.floor(Math.random() * (max - min + 1)) + min;
+                imn = Math.floor(Math.random() * (max - min + 1)) + min;
+                return preBuffer[imn];
+        }
+
+        document.getElementById("counter").innerHTML = counter;
+
+        if (counter > 0 && counter < numSlides) {
+
+
+
+            document.getElementById("mainText").innerHTML = "";
+
+            // 0 is first image,   preBuffer.length - 1) is  last image
+
+            var newImage = getRandomInt(0, preBuffer.length - 1);
+
+            // remove the previous images
+            var images = document.getElementsByTagName('img');
+            var l = images.length;
+
+            for (var p = 0; p < l; p++) {
+                images[0].parentNode.removeChild(images[0]);
+            }
+
+
+            // display the image
+            document.getElementById('imageContainer').appendChild(newImage);
+            console.log(newImage);
+
+        } else if (counter >= numSlides) {
+            // toggleSlides()
+
+            // remove the previous images
+            var images = document.getElementsByTagName('img');
+            var l = images.length;
+
+            for (var p = 0; p < l; p++) {
+                images[0].parentNode.removeChild(images[0]);
+            }
+            console.log('max reached')
+
+            document.getElementById("mainText").innerHTML = "Wrap up...";
+        }
+
+        counter ++;
+        console.log(counter)
+
+        // setInterval(function () {document.getElementById("jsstyle").click();}, 2000);
+
+      }
+
+    </script>
+    </body>
+
+</html>
