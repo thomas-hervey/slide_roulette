@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div.slide
+    h1#wrapUp=title
+
+  //- if autoAdvance is true, - after 10 seconds, redirect to /thankYou
+  script.
+    setTimeout(function() {
+      const thankYouRoute = '/thankYou'
+      window.location.href = thankYouRoute
+    }, 10000)
