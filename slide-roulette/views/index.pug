@@ -1,0 +1,82 @@
+extends layout
+
+block content
+  div#landing
+    h1= title
+    p Welcome to #{title}
+
+    //- show an image of a roulette wheel
+    img.cover(src="/img/game-bank-gaeb8bac81_1920.jpg" alt="Slide Roulette")
+
+    //- div to hold the buttons
+    div.buttons
+
+      div.button
+        //- checkbox to toggle auto-advance
+        label(for="auto-advance")
+          input#auto-advance.filled-in(type="checkbox" checked)
+          span Auto-Advance
+
+      div.button
+        //- input to set number of slides
+        input#num-slides(type="number" min="1" max="10" value="10")
+        label(for="num-slides") Number of Slides
+
+      div.button
+        //- radio button to set the speed between slow, medium, and fast
+        label(for="slow")
+          input#slow(type="radio" name="speed" value="slow" checked)
+          span Slow
+        label(for="medium")
+          input#medium(type="radio" name="speed" value="medium")
+          span Medium
+        label(for="fast")
+          input#fast(type="radio" name="speed" value="fast")
+          span Fast
+
+      div.button
+        //- button to start the game and route to the game page
+        button#start-game.waves-effect.waves-light.btn Start Game
+
+  //- script to handle the buttons
+  script.
+    // get the buttons
+    const autoAdvance = document.getElementById('auto-advance');
+    const numSlides = document.getElementById('num-slides');
+    const speed = document.getElementsByName('speed');
+    let setSpeed
+    const startGame = document.getElementById('start-game');
+    const randomSlide = document.getElementById('random-slide');
+
+    //- toggle the auto-advance checkbox
+    autoAdvance.addEventListener('click', function() {
+      autoAdvance.value = autoAdvance.checked ? 'on' : 'off'
+    });
+
+    const speeds = {
+      slow: 15000,
+      medium: 10000,
+      fast: 5000
+    }
+
+    //- set the initial speed value based on checked the radio button
+    for (let i = 0; i < speed.length; i++) {
+      if (speed[i].checked) {
+        setSpeed = speeds[speed[i].value]
+        speed.value = setSpeed
+      }
+    }
+
+    //- set the speed radio button
+    for (let i = 0; i < speed.length; i++) {
+      speed[i].addEventListener('click', function() {
+        setSpeed = speeds[speed[i].value]
+        speed.value = setSpeed
+      });
+    }
+
+    startGame.addEventListener('click', function() {
+      // route to the game page with the auto-advance status, number of slides, and speed
+
+      window.location.href = '/game?' + 'numSlides=' + numSlides.value + '&autoAdvance=' + autoAdvance.value + '&speed=' + speed.value;
+    });
